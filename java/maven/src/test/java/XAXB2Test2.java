@@ -18,4 +18,9 @@ public class XAXB2Test2 {
     public void test_4_A_0_B() {
         assertThat(xAxB.count("1234", "1234")).isEqualTo("4A0B");
     }
+
+    @Test
+    public void test_0_A_0_B() {
+        assertThat(xAxB.count("1234", "5678")).isEqualTo("0A0B");
+    }
 }

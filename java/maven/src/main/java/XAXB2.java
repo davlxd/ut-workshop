@@ -18,6 +18,6 @@ public class XAXB2 {
             }
         }
 
-        return countA + "A" + countB + "B";
+        return countA + "A" + (countB - countA) + "B";
     }
 }

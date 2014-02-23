@@ -3,12 +3,21 @@
  */
 public class XAXB2 {
     public String count(String challenge, String guess) {
-        int count = 0;
+        int countA = 0, countB = 0;
         for (int i = 0; i < challenge.length(); i++) {
             if (challenge.charAt(i) == guess.charAt(i)) {
-                count += 1;
+                countA += 1;
             }
         }
-        return count + "A" + "0B";
+
+        for (int i = 0; i < guess.length(); i++) {
+            for (int j = 0; j < challenge.length(); j++) {
+                if (guess.charAt(i) == challenge.charAt(j)) {
+                    countB += 1;
+                }
+            }
+        }
+
+        return countA + "A" + countB + "B";
     }
 }

@@ -1,7 +1,7 @@
 /**
  * Created by lxd on 23/2/14.
  */
-public class XAXB2 {
+public class CompareTwoNumbers {
 
     public int countA(String challenge, String guess) {
         int count = 0;
@@ -13,7 +13,7 @@ public class XAXB2 {
         return count;
     }
 
-    public int countB(String challenge, String guess) {
+    public int countBIncludingA(String challenge, String guess) {
         int count = 0;
         for (int i = 0; i < guess.length(); i++) {
             for (int j = 0; j < challenge.length(); j++) {
@@ -25,10 +25,10 @@ public class XAXB2 {
         return count;
     }
 
-    public String count(String challenge, String guess) {
+    public String countAB(String challenge, String guess) {
         int count_a = countA(challenge, guess);
-        int count_b = countB(challenge, guess);
+        int count_b_with_a = countBIncludingA(challenge, guess);
 
-        return count_a + "A" + (count_b - count_a) + "B";
+        return count_a + "A" + (count_b_with_a - count_a) + "B";
     }
 }

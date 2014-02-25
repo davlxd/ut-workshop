@@ -4,10 +4,14 @@ import java.util.Random;
  * Created by xdli on 2/24/14.
  */
 public class RandomNumberGenerator {
+    private Random random;
+
+    public RandomNumberGenerator(Random random) {
+        this.random = random;
+    }
 
     public String generate() {
         StringBuilder sb = new StringBuilder();
-        Random random = new Random();
 
         for (int i =0; i < 4; i++) {
             int d = random.nextInt(10);

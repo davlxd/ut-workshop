@@ -5,20 +5,13 @@ public class GuessNumber {
     private CompareTwoNumbers compareTwoNumbers;
     private RandomNumberGenerator randomNumberGenerator;
 
-    public GuessNumber() {
+    public GuessNumber(CompareTwoNumbers compareTwoNumbers, RandomNumberGenerator randomNumberGenerator) {
+        this.compareTwoNumbers = compareTwoNumbers;
+        this.randomNumberGenerator = randomNumberGenerator;
     }
 
     public String guess(String guess) {
         String challenge = randomNumberGenerator.generate();
         return compareTwoNumbers.countAB(challenge, guess);
-    }
-
-
-    public void setCompareTwoNumbers(CompareTwoNumbers compareTwoNumbers) {
-        this.compareTwoNumbers = compareTwoNumbers;
-    }
-
-    public void setRandomNumberGenerator(RandomNumberGenerator randomNumberGenerator) {
-        this.randomNumberGenerator = randomNumberGenerator;
     }
 }

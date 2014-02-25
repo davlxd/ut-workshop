@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Random;
+
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -13,7 +15,6 @@ public class GuessNumberTest {
 
     @Before
     public void setup() {
-        guessNumber = new GuessNumber();
     }
 
     @Test
@@ -24,9 +25,7 @@ public class GuessNumberTest {
         CompareTwoNumbers compareTwoNumbers = mock(CompareTwoNumbers.class);
         when(compareTwoNumbers.countAB("1234", "1234")).thenReturn("4A0B");
 
-
-        guessNumber.setRandomNumberGenerator(randomNumberGenerator);
-        guessNumber.setCompareTwoNumbers(compareTwoNumbers);
+        guessNumber = new GuessNumber(compareTwoNumbers, randomNumberGenerator);
 
         assertThat(guessNumber.guess("1234")).isEqualTo("4A0B");
 
@@ -39,9 +38,7 @@ public class GuessNumberTest {
 
         CompareTwoNumbers compareTwoNumbers = new CompareTwoNumbers();
 
-
-        guessNumber.setRandomNumberGenerator(randomNumberGenerator);
-        guessNumber.setCompareTwoNumbers(compareTwoNumbers);
+        guessNumber = new GuessNumber(compareTwoNumbers, randomNumberGenerator);
 
         assertThat(guessNumber.guess("1234")).isEqualTo("4A0B");
         assertThat(guessNumber.guess("1234")).isEqualTo("0A3B");

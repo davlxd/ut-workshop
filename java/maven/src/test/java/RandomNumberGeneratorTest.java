@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -15,7 +16,7 @@ public class RandomNumberGeneratorTest {
 
     @Before
     public void setup() {
-        randomNumberGenerator = new RandomNumberGenerator();
+        randomNumberGenerator = new RandomNumberGenerator(new Random());
     }
 
 

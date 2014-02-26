@@ -30,4 +30,42 @@ public class GuessGameTest {
         assertThat(guessGame.readUserInput()).isEqualTo("1234");
     }
 
+    @Test
+    public void should_throw_exception_if_user_input_not_4_digit() {
+        GuessGame guessGame = new GuessGame(System.in, System.out);
+
+        try {
+            guessGame.verifyUserInput("123");
+        } catch (Exception e) {
+            assertThat(e).hasMessageContaining("exactly 4 digits");
+        }
+
+    }
+
+
+    @Test
+    public void should_throw_exception_if_user_input_not_just_digit() {
+        GuessGame guessGame = new GuessGame(System.in, System.out);
+
+        try {
+            guessGame.verifyUserInput("12a3");
+        } catch (Exception e) {
+            assertThat(e).hasMessageContaining("only contain digit");
+        }
+
+    }
+
+
+    @Test
+    public void should_throw_exception_if_user_input_duplicate_digit() {
+        GuessGame guessGame = new GuessGame(System.in, System.out);
+
+        try {
+            guessGame.verifyUserInput("1223");
+        } catch (Exception e) {
+            assertThat(e).hasMessageContaining("unique to each other");
+        }
+
+    }
+
 }

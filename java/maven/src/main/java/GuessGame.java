@@ -72,6 +72,7 @@ public class GuessGame {
                     return ;
                 }
             }
+            outputStream.write("You failed.\n".getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }

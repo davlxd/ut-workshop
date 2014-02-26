@@ -109,6 +109,7 @@ public class GuessGameTest {
             expectOutput.append("Please input your guess:\n");
             expectOutput.append("0A0B\n");
         }
+        expectOutput.append("You failed.\n");
         assertThat(byteArrayOutputStream.toString()).isEqualTo(expectOutput.toString());
     }
 

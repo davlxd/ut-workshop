@@ -12,6 +12,18 @@ public class GuessGame {
         this.outputStream = outputStream;
     }
 
+
+    public String readUserInput() {
+        byte[] userInput = new byte[1024];
+        try {
+            inputStream.read(userInput);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new String(userInput).trim();
+    }
+
     public void gameStart() {
         try {
             outputStream.write("Welcome! Please input your guess:\n".getBytes());

@@ -16,7 +16,6 @@ public class GuessGameTest {
     @Test
     public void when_game_begin_should_print_welcome_message() {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
         GuessGame guessGame = new GuessGame(System.in, byteArrayOutputStream);
 
         guessGame.gameStart();
@@ -25,6 +24,10 @@ public class GuessGameTest {
 
     @Test
     public void should_read_line_user_input_correctly() {
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream("1234".getBytes());
+
+        GuessGame guessGame = new GuessGame(byteArrayInputStream, System.out);
+        assertThat(guessGame.readUserInput()).isEqualTo("1234");
     }
 
 }

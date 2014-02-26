@@ -63,9 +63,13 @@ public class GuessGame {
                 } catch (Exception e) {
                     outputStream.write(e.getMessage().getBytes());
                 }
-                String xaxb = compareTwoNumbers.countAB(challenge, guess);
-                xaxb += "\n";
+                String xaxb = compareTwoNumbers.countAB(challenge, guess) + "\n";
                 outputStream.write(xaxb.getBytes());
+
+                if (xaxb.equals("4A0B\n")) {
+                    outputStream.write("Congratulations!\n".getBytes());
+                    return ;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

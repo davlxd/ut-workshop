@@ -153,4 +153,44 @@ public class GuessGameTest {
         assertThat(byteArrayOutputStream.toString()).isEqualTo(expectOutput.toString());
     }
 
+
+    @Test
+    public void guess_game_should_terminal_in_advance_if_guess_match_and_with_invalid_input() {
+        CompareTwoNumbers compareTwoNumbers = new CompareTwoNumbers(); //Didn't mock CompareTwoNumbers
+        RandomNumberGenerator randomNumberGenerator = mock(RandomNumberGenerator.class);
+
+        when(randomNumberGenerator.generate()).thenReturn("1234");
+
+
+        byte[] mockUserInput = new byte[10240];
+        Arrays.fill(mockUserInput, 0, 1, (byte)'4');
+        Arrays.fill(mockUserInput, 1, 2, (byte)'3');
+        Arrays.fill(mockUserInput, 2, 3, (byte)'2');
+
+        Arrays.fill(mockUserInput, 1024, 1025, (byte)'1');
+        Arrays.fill(mockUserInput, 1025, 1026, (byte)'2');
+        Arrays.fill(mockUserInput, 1026, 1027, (byte)'3');
+        Arrays.fill(mockUserInput, 1027, 1028, (byte)'4');
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(mockUserInput);
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+
+        GuessGame guessGame = new GuessGame(byteArrayInputStream, byteArrayOutputStream,
+                compareTwoNumbers, randomNumberGenerator);
+
+        guessGame.gameStart();
+
+
+        StringBuffer expectOutput = new StringBuffer();
+        expectOutput.append("Welcome!");
+        expectOutput.append("Please input your guess:\n");
+        expectOutput.append("User input should contain exactly 4 digits\n");
+        expectOutput.append("Please input your guess:\n");
+        expectOutput.append("4A0B\n");
+        expectOutput.append("Congratulations!\n");
+
+        assertThat(byteArrayOutputStream.toString()).isEqualTo(expectOutput.toString());
+    }
+
 }

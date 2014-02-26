@@ -61,7 +61,8 @@ public class GuessGame {
                 try {
                     verifyUserInput(guess);
                 } catch (Exception e) {
-                    outputStream.write(e.getMessage().getBytes());
+                    outputStream.write((e.getMessage()+"\n").getBytes());
+                    continue;
                 }
                 String xaxb = compareTwoNumbers.countAB(challenge, guess) + "\n";
                 outputStream.write(xaxb.getBytes());

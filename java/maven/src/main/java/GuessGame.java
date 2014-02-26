@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Random;
 
 /**
  * Created by xdli on 2/26/14.
@@ -6,10 +7,15 @@ import java.io.*;
 public class GuessGame {
     private InputStream inputStream;
     private OutputStream outputStream;
+    private CompareTwoNumbers compareTwoNumbers;
+    private RandomNumberGenerator randomNumberGenerator;
 
-    public GuessGame(InputStream inputStream, OutputStream outputStream) {
+    public GuessGame(InputStream inputStream, OutputStream outputStream,
+                     CompareTwoNumbers compareTwoNumbers, RandomNumberGenerator randomNumberGenerator) {
         this.inputStream = inputStream;
         this.outputStream = outputStream;
+        this.compareTwoNumbers = compareTwoNumbers;
+        this.randomNumberGenerator = randomNumberGenerator;
     }
 
     public void verifyUserInput(String userInput) throws Exception {
@@ -44,14 +50,31 @@ public class GuessGame {
     }
 
     public void gameStart() {
+        String challenge = randomNumberGenerator.generate();
+        int count = 0;
         try {
-            outputStream.write("Welcome! Please input your guess:\n".getBytes());
+            outputStream.write("Welcome!".getBytes());
+
+            while(count++ < 6) {
+                outputStream.write("Please input your guess:\n".getBytes());
+                String guess = readUserInput();
+                try {
+                    verifyUserInput(guess);
+                } catch (Exception e) {
+                    outputStream.write(e.getMessage().getBytes());
+                }
+                String xaxb = compareTwoNumbers.countAB(challenge, guess);
+                xaxb += "\n";
+                outputStream.write(xaxb.getBytes());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static void main(String args[]) {
-        new GuessGame(System.in, System.out).gameStart();
+        new GuessGame(System.in, System.out,
+                new CompareTwoNumbers(), new RandomNumberGenerator(new Random()))
+                .gameStart();
     }
 }

@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.management.monitor.GaugeMonitor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -13,14 +14,15 @@ import static org.mockito.Mockito.*;
 public class GuessGameTest {
     private InputStream inputStream;
     private OutputStream outputStream;
-
+    private GameStep gameStep;
     private GuessGame guessGame;
 
     @Before
     public void setup() {
         inputStream = mock(InputStream.class);
         outputStream = mock(OutputStream.class);
-        guessGame = new GuessGame(inputStream, outputStream);
+        gameStep = mock(GameStep.class);
+        guessGame = new GuessGame(inputStream, outputStream, gameStep);
     }
 
     @Test
@@ -31,10 +33,22 @@ public class GuessGameTest {
 
     @Test
     public void game_is_a_six_time_loop() throws IOException {
+        when(gameStep.step()).thenReturn("0A0B");
         guessGame.gameStart();
+
         verify(outputStream).write("Please input your guess(6):".getBytes());
         verify(outputStream).write("Please input your guess(1):".getBytes());
         verify(outputStream, never()).write("Please input your guess(0):".getBytes());
+    }
+
+    @Test
+    public void game_will_terminal_if_user_guess_matches() throws IOException {
+        when(gameStep.step()).thenReturn("0A0B").thenReturn("4A0B");
+        guessGame.gameStart();
+
+        verify(outputStream).write("Please input your guess(6):".getBytes());
+        verify(outputStream).write("Please input your guess(5):".getBytes());
+        verify(outputStream, never()).write("Please input your guess(4):".getBytes());
     }
 
 }

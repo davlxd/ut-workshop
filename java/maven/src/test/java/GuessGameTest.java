@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -17,7 +18,9 @@ public class GuessGameTest {
     private GuessGame guessGame;
 
     @Before
-    private void setup() {
+    public void setup() {
+        inputStream = mock(InputStream.class);
+        outputStream = mock(OutputStream.class);
         guessGame = new GuessGame(inputStream, outputStream);
     }
 

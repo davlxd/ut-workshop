@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -28,6 +29,13 @@ public class GuessGameTest {
     public void when_game_start_print_welcome_message() throws IOException{
         guessGame.gameStart();
         verify(outputStream).write("Welcome!\n".getBytes());
+    }
+
+    @Test
+    public void game_is_a_six_time_loop() throws IOException {
+        guessGame.gameStart();
+        verify(outputStream).write("Please input your guess(6):".getBytes());
+        verify(outputStream).write("Please input your guess(1):".getBytes());
     }
 
 }

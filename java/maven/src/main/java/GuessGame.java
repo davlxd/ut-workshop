@@ -16,5 +16,12 @@ public class GuessGame {
 
     public void gameStart() throws IOException{
         outputStream.write("Welcome!\n".getBytes());
+        int count = 6;
+        while (count > 0) {
+            String msg = "Please input your guess(" +count+"):";
+            outputStream.write(msg.getBytes());
+
+            count -= 1;
+        }
     }
 }

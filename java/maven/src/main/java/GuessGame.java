@@ -8,10 +8,12 @@ import java.io.OutputStream;
 public class GuessGame {
     private InputStream inputStream;
     private OutputStream outputStream;
+    private GameStep gameStep;
 
-    public GuessGame(InputStream inputStream, OutputStream outputStream) {
+    public GuessGame(InputStream inputStream, OutputStream outputStream, GameStep gameStep) {
         this.inputStream = inputStream;
         this.outputStream = outputStream;
+        this.gameStep = gameStep;
     }
 
     private void step(int count) throws IOException {

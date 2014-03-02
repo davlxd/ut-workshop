@@ -16,16 +16,14 @@ public class GuessGame {
         this.gameStep = gameStep;
     }
 
-    private void step(int count) throws IOException {
-        String msg = "Please input your guess(" +count+"):";
-        outputStream.write(msg.getBytes());
-    }
-
     public void gameStart() throws IOException{
         outputStream.write("Welcome!\n".getBytes());
         int count = 6;
         while (count > 0) {
-            step(count);
+            outputStream.write(("Please input your guess(" +count+"):").getBytes());
+            if ("4A0B".equals(gameStep.step())) {
+                return ;
+            }
             count -= 1;
         }
     }

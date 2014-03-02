@@ -14,13 +14,16 @@ public class GuessGame {
         this.outputStream = outputStream;
     }
 
+    private void step(int count) throws IOException {
+        String msg = "Please input your guess(" +count+"):";
+        outputStream.write(msg.getBytes());
+    }
+
     public void gameStart() throws IOException{
         outputStream.write("Welcome!\n".getBytes());
         int count = 6;
         while (count > 0) {
-            String msg = "Please input your guess(" +count+"):";
-            outputStream.write(msg.getBytes());
-
+            step(count);
             count -= 1;
         }
     }

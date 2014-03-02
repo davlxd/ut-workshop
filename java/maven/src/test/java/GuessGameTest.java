@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by lxd on 2/3/14.
@@ -36,6 +34,7 @@ public class GuessGameTest {
         guessGame.gameStart();
         verify(outputStream).write("Please input your guess(6):".getBytes());
         verify(outputStream).write("Please input your guess(1):".getBytes());
+        verify(outputStream, never()).write("Please input your guess(0):".getBytes());
     }
 
 }

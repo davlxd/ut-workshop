@@ -24,6 +24,9 @@ public class GuessGame {
             if ("4A0B".equals(gameStep.step())) {
                 return ;
             }
+            if ("".equals(gameStep.step())) {
+                outputStream.write("User Input invalid!\n".getBytes());
+            }
             count -= 1;
         }
     }

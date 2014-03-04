@@ -51,4 +51,14 @@ public class GuessGameTest {
         verify(outputStream, never()).write("Please input your guess(4):".getBytes());
     }
 
+    @Test
+    public void prompt_if_user_input_invalid() throws IOException {
+        when(gameStep.step()).thenReturn("0A0B").thenReturn("");
+        guessGame.gameStart();
+
+        verify(outputStream).write("Please input your guess(6):".getBytes());
+        verify(outputStream).write("Please input your guess(5):".getBytes());
+        verify(outputStream, atLeastOnce()).write("User Input invalid!\n".getBytes());
+    }
+
 }

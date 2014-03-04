@@ -3,15 +3,14 @@
  */
 public class GuessNumber {
     private CompareTwoNumbers compareTwoNumbers;
-    private RandomNumberGenerator randomNumberGenerator;
+    private String challenge;
 
     public GuessNumber(CompareTwoNumbers compareTwoNumbers, RandomNumberGenerator randomNumberGenerator) {
         this.compareTwoNumbers = compareTwoNumbers;
-        this.randomNumberGenerator = randomNumberGenerator;
+        this.challenge = randomNumberGenerator.generate();
     }
 
     public String guess(String guess) {
-        String challenge = randomNumberGenerator.generate();
         return compareTwoNumbers.countAB(challenge, guess);
     }
 }

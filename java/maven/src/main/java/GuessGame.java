@@ -20,12 +20,15 @@ public class GuessGame {
         outputStream.write("Welcome!\n".getBytes());
         int count = 6;
         while (count > 0) {
-            outputStream.write(("Please input your guess(" +count+"):").getBytes());
-            if ("4A0B".equals(gameStep.step())) {
+            outputStream.write(("Please input your guess(" + count + "):").getBytes());
+            String stepRet = gameStep.step();
+            if ("4A0B".equals(stepRet)) {
+                outputStream.write("Congratulations!\n".getBytes());
                 return ;
-            }
-            if ("".equals(gameStep.step())) {
+            } else if ("".equals(stepRet)) {
                 outputStream.write("User Input invalid!\n".getBytes());
+            } else {
+                outputStream.write((stepRet+"\n").getBytes());
             }
             count -= 1;
         }

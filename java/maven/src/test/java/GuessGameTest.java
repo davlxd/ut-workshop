@@ -5,6 +5,7 @@ import javax.management.monitor.GaugeMonitor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Random;
 
 import static org.mockito.Mockito.*;
 
@@ -14,7 +15,9 @@ import static org.mockito.Mockito.*;
 public class GuessGameTest {
     private InputStream inputStream;
     private OutputStream outputStream;
+
     private GameStep gameStep;
+
     private GuessGame guessGame;
 
     @Before
@@ -60,5 +63,41 @@ public class GuessGameTest {
         verify(outputStream).write("Please input your guess(5):".getBytes());
         verify(outputStream, atLeastOnce()).write("User Input invalid!\n".getBytes());
     }
+
+    @Test
+    public void integrate_test() throws IOException {
+        inputStream = mock(InputStream.class);
+        outputStream = mock(OutputStream.class);
+
+        CompareTwoNumbers compareTwoNumbers = new CompareTwoNumbers();
+        RandomNumberGenerator randomNumberGenerator = mock(RandomNumberGenerator.class);
+        when(randomNumberGenerator.generate()).thenReturn("1234");
+        GuessNumber guessNumber = new GuessNumber(compareTwoNumbers, randomNumberGenerator);
+
+        ReadUserInput readUserInput = mock(ReadUserInput.class);
+        gameStep = new GameStep(guessNumber, readUserInput);
+
+        guessGame = new GuessGame(inputStream, outputStream, gameStep);
+
+        when(readUserInput.readLine()).thenReturn("4321").thenReturn("").thenReturn("1234");
+
+        guessGame.gameStart();
+
+        verify(outputStream).write("Welcome!\n".getBytes());
+        verify(randomNumberGenerator).generate();
+
+        verify(outputStream).write("Please input your guess(6):".getBytes());
+        verify(outputStream).write("0A4B\n".getBytes());
+        verify(outputStream).write("Please input your guess(5):".getBytes());
+        verify(outputStream).write("User Input invalid!\n".getBytes());
+        verify(outputStream).write("Please input your guess(4):".getBytes());
+        verify(outputStream).write("Congratulations!\n".getBytes());
+        verify(outputStream, never()).write("Please input your guess(3):".getBytes());
+
+
+
+    }
+
+
 
 }

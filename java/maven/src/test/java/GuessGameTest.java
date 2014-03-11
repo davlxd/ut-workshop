@@ -53,6 +53,23 @@ public class GuessGameTest {
         verify(outputStream).write("Please input your guess(5):".getBytes());
         verify(outputStream, never()).write("Please input your guess(4):".getBytes());
     }
+    @Test
+    public void user_guess_matches_at_sixth_time() throws IOException {
+        when(gameStep.step())
+                .thenReturn("0A0B")
+                .thenReturn("0A0B")
+                .thenReturn("0A0B")
+                .thenReturn("0A0B")
+                .thenReturn("0A0B")
+                .thenReturn("4A0B");
+        guessGame.gameStart();
+
+        verify(outputStream).write("Please input your guess(6):".getBytes());
+        verify(outputStream).write("Please input your guess(5):".getBytes());
+        verify(outputStream).write("Please input your guess(1):".getBytes());
+        verify(outputStream).write("Congratulations!\n".getBytes());
+        verify(outputStream, never()).write("Please input your guess(0):".getBytes());
+    }
 
     @Test
     public void prompt_if_user_input_invalid() throws IOException {
